@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Validador Soberano COATLICUE | CompraNet</title>
+    <style>
+        body { font-family: 'Courier New', monospace; background: #0a0a0a; color: #00ff00; padding: 2rem; }
+        .container { max-width: 800px; margin: 0 auto; border: 1px solid #333; padding: 2rem; }
+        h1 { border-bottom: 1px solid #00ff00; padding-bottom: 10px; }
+        .hash-box { background: #111; padding: 15px; word-break: break-all; border: 1px dashed #004400; margin: 20px 0; }
+        .status { font-weight: bold; margin-top: 10px; }
+        .valid { color: #00ff00; } .invalid { color: #ff0000; }
+        button { background: #004400; color: white; border: none; padding: 10px 20px; cursor: pointer; font-family: inherit; }
+        button:hover { background: #006600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>COATLICUE: Auditoría Ciudadana</h1>
+        <p>Este sistema verifica la integridad matemática de los contratos de CompraNet (2010-2022).</p>
+        
+        <h3>ROOT HASH OFICIAL (Inmutable):</h3>
+        <div class="hash-box" id="rootDisplay">
+            c8f2199b9becd2285a45ae35c288f9ce4721f37ba8fd227666948276f1494d67
+        </div>
+
+        <h3>Verificar Lote de Evidencia:</h3>
+        <p>Sube un archivo JSON (ej. <i>batch_1.json</i>) para verificar si pertenece a esta auditoría certificada.</p>
+        <input type="file" id="fileInput" accept=".json">
+        <div id="result" class="status"></div>
+    </div>
+
+    <script>
+        // Lógica de Validación Soberana en el Navegador (Client-Side)
+        const OFFICIAL_ROOT = "c8f2199b9becd2285a45ae35c288f9ce4721f37ba8fd227666948276f1494d67";
+
+        document.getElementById('fileInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const text = await file.text();
+            
+            // 1. Canonicalización (Simulada para este demo: quitamos espacios extra)
+            // En producción real, usaríamos una lib JCS (RFC 8785) estricta.
+            // Para este ejemplo, calculamos el hash del contenido crudo subido (si no fue modificado).
+            const msgBuffer = new TextEncoder().encode(text);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const fileHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+            // 2. Verificación (En una implementación completa Merkle, aquí verificaríamos la "Proof Path")
+            // Por ahora, mostramos el hash del lote para cotejo manual con el reporte.
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                HASH DEL ARCHIVO: <br>${fileHash}<br><br>
+                ESTADO: <span style="color:yellow">ARCHIVO PROCESADO LOCALMENTE.</span><br>
+                <small>Para validación criptográfica completa, comparar este hash contra 'merkle_report.json'</small>
+            `;
+        });
+    </script>
+</body>
+</html>

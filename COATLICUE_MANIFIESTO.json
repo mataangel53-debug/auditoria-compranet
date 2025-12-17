@@ -1,0 +1,25 @@
+{
+    "$schema": "https://protocolo.coatlicue.org/schemas/v1/manifesto.json",
+    "meta_auditoria": {
+        "audit_uuid": "AUD-CNET-2025-UBUNTU-MATA",
+        "timestamp_finalizacion_utc": "2025-12-16T16:15:00Z",
+        "responsable_tecnico": "Angel Manuel Mata Montes",
+        "hash_algoritmo_maestro": "SHA-256",
+        "estrategia_cifrado": "MERKLE TREE (Post-Quantum Safe)"
+    },
+    "objetivo_recurso": {
+        "plataforma": "CompraNet Histórico (datos.gob.mx)",
+        "archivo_fuente": "compranet_historico(1).csv",
+        "descripcion": "Auditoría de Integridad y Preservación Digital 2010-2022"
+    },
+    "resultado_forense": {
+        "merkle_root_hash": "c8f2199b9becd2285a45ae35c288f9ce4721f37ba8fd227666948276f1494d67",
+        "total_lotes_procesados": 472,
+        "integridad_estado": "SELLADO"
+    },
+    "configuracion_preservacion": {
+        "normativa": "NOM-151-SCFI-2016",
+        "formato_evidencia": "JSON Canonico (RFC 8785)",
+        "custodia": "LocalFirst (Soberana) con Verificación Pública"
+    }
+}

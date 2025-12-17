@@ -1,0 +1,9 @@
+*.json
+*.csv
+!EVIDENCIA_ANOMALIA_15FEB2017.csv
+!merkle_report.json
+!COATLICUE_MANIFIESTO.json
+.venv/
+*.keys/
+__pycache__/
+.~lock.*
